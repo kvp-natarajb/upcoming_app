@@ -1,0 +1,54 @@
+<div class="content">
+  <div class="container-fluid">
+    <div class="card">
+      <%= form_tag admins_path, method: :get do %>
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-group">
+              <%= text_field_tag :org_name, nil, class: "form-control", placeholder: 'Org name' %>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <%= text_field_tag :created_by, nil, class: "form-control", placeholder: 'Created by' %>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <%= text_field_tag :country, nil, class: "form-control", placeholder: 'Country' %>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <%= submit_tag "Search", class: "btn btn-primary" %>
+          </div>
+        </div>
+      <% end %>
+  </div>
+  </div>
+</div>
+<div class="row">
+  <div class='col-md-12'>
+  <table class='table' id='organization_table'>
+    <thead>
+      <th>ID</th>
+      <th>Organization name</th>
+      <th>Organization Identifier</th>
+      <th>Created by</th>
+      <th>Country</th>
+    </thead>
+    <tbody>
+      <% @organizations.each do | org | %>
+        <tr>
+          <td><%= org.try(:id) %></td>
+          <td><%= org.try(:org_name) %></td>
+          <td><%= org.try(:org_identifier) %></td>
+          <td><%= org.user.try(:email) %></td>
+          <td><%= org.address.try(:country) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= will_paginate @organizations %>
+  </div>
+</div>
+

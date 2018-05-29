@@ -1,0 +1,97 @@
+<div class="row">
+    <div class="col-md-12">
+      <div class="content">
+            <%= simple_form_for(organization) do |f| %>
+              <% if organization.errors.any? %>
+                <div id="error_explanation">
+                  <h2><%= pluralize(organization.errors.count, "error") %> prohibited this organization from being saved:</h2>
+
+                  <ul>
+                  <% organization.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                  </ul>
+                </div>
+              <% end %>
+
+              <div class="row">
+                <div class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8">
+                  <div class="form-group">
+                    <%= f.input :org_name, label: false, input_html: { class: "form-control", required: true }, placeholder: "org name" %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8">
+                  <div class="form-group">
+                    <%= f.input :org_identifier, label: false, input_html: { class: "form-control", required: true, :readonly => true  } %>
+                  </div>
+                </div>
+              </div>
+
+              <%= f.simple_fields_for :profile do |p| %>
+                <div class="row">
+                  <div class="col-lg-offset-3 col-lg-3 col-md-offset-2 col-md-4">
+                    <div class="form-group">
+                      <%= p.input :first_name, label: false, input_html: { class: "form-control", required: true }, placeholder: "first name"  %>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-md-4">
+                    <div class="form-group">
+                      <%= p.input :last_name, label: false, input_html: { class: "form-control", required: true }, placeholder: "last name"  %>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+
+              <%= f.simple_fields_for :address do |a| %>
+                <div class="row">
+                  <div class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8">
+                    <div class="form-group">
+                      <%= a.input :line1, label: false, input_html: { class: "form-control", required: true }, placeholder: "line 1"  %>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8">
+                    <div class="form-group">
+                      <%= a.input :line2, label: false, input_html: { class: "form-control", required: true }, placeholder: "line 2" %>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-offset-3 col-lg-3 col-md-offset-2 col-md-4">
+                    <div class="form-group">
+                      <%= a.input :city, label: false, input_html: { class: "form-control", required: true }, placeholder: "city" %>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-md-4">
+                    <div class="form-group">
+                      <%= a.input :state, label: false, input_html: { class: "form-control", required: true }, placeholder: "state" %>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-offset-3 col-lg-3 col-md-offset-2 col-md-4">
+                    <div class="form-group">
+                      <%= a.input :country, label: false, :as => :string, input_html: { class: "form-control", required: true }, placeholder: "country" %>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-md-4">
+                    <div class="form-group">
+                      <%= a.input :zipcode, label: false, input_html: { class: "form-control", required: true, maxlength: 6 }, placeholder: "zipcode" %>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+
+              <div class="row">
+                <div class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8">
+                  <%= f.button :submit, class: 'btn btn-primary' %>
+                </div>
+              </div>
+            <% end %>
+      </div>
+    </div>
+</div>
