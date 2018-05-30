@@ -1,13 +1,11 @@
 //= require validations/custom_methods
 
-window.onload = function(){
+$(document).ready(function(){
   validate_form();
   generate_identifier();
-  $(document).on('ready page:load turbolinks:load', function () {
-    validate_form();
-    generate_identifier();
-  });
-}
+  duplicate_check();
+})
+
 
 
 function generate_identifier(){
@@ -16,6 +14,30 @@ function generate_identifier(){
     $("#organization_org_identifier").val(identifier);
   });
 }
+
+
+function duplicate_check(){
+  $(':input[name="organization[org_name]"]').rules("add",
+  {
+    remote:
+    {
+        url: '/is_domain_available/',
+        data:
+        {
+            organization_name: function()
+            {
+                return $('#new_organization :input[name="organization[org_name]"]').val();
+            }
+        }
+    },
+    messages: {
+      remote: 'Domain is not available'
+    }
+  });
+}
+
+
+
 
 function validate_form(){
 
@@ -27,7 +49,6 @@ function validate_form(){
     rules: {
       'organization[org_name]': {
         required: true,
-        verifyDomainNameAvailability: true,
         minlength: 2,
         maxlength: 30
       },

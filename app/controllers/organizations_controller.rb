@@ -24,7 +24,7 @@ class OrganizationsController < ApplicationController
 
 	def is_domain_available
 		status = Organization.find_by(org_name: params["organization_name"]).blank?
-	    render json: { issuccess:  status }
+	    render json: status
 	end
 
 	private

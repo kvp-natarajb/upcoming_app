@@ -1,17 +1,13 @@
 $.validator.addMethod('verifyDomainNameAvailability', (function(value, element) {
-  var isSuccess = false;
+  var isSuccess = true; 
   $.ajax({ url: "/is_domain_available/", 
     data: { organization_name: value }, 
-    async: false, 
+    async: true, 
     success: 
         function(data) { 
+        	debugger
         	isSuccess = data.issuccess; 
-        	if(isSuccess){
-        		return true;
-        	}else{
-        		return false;
-        	}
         }
   });
-  return isSuccess
+  isSuccess;
 }), 'Domain is not available');
